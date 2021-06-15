@@ -16,11 +16,11 @@ const replieFail = [
 const replieSuccess = [
     "Hot from the CPU ! 🥧",
     "The icing on the JPEG ! 🍰"
-]
+];
 
 module.exports = async function (msg, args) {
     // Si la commande a le bon nombre d'arguments
-    if (args.length > 0 && args.length <= 3) {
+    if (args.length > 1 && args.length <= 3) {
         // Take the URL from < url >
         let url = args[0].slice(1, args[0].length);
         // On charge l'image
@@ -33,19 +33,30 @@ module.exports = async function (msg, args) {
                     const context = canvas.getContext('2d');
                     // On y met l'image
                     context.drawImage(image, 0, 0, image.width, image.height);
-                    if (args.length > 1) {
-                        // On met la police de la taille du plus petit entre le quart de la hauteur ou la place que prends le texte en largeur
-                        var fontSize = Math.min(image.height / 4, (image.width / args[1].length) * 2)
-                        context.font = `${fontSize}px Impact`
-                        context.textAlign = 'center'
-                        context.textBaseline = 'top'
-                        context.fillText(args[1], image.width / 2, 0);
-                    }
+                    // On met la police de la taille du plus petit entre le quart de la hauteur ou la place que prends le texte en largeur
+                    var fontSize = Math.min(image.height / 4, (image.width / args[1].length) * 2);
+
+                    context.font = `${fontSize}px Impact`;
+                    context.textAlign = 'center';
+
+                    context.textBaseline = 'top';
+                    context.fillStyle = 'white';
+
+                    context.strokeStyle = 'black';
+                    context.lineWidth = fontSize / 25;
+
+                    context.strokeText(args[1], image.width / 2, 0);
+                    context.fillText(args[1], image.width / 2, 0);
+
                     if (args.length > 2) {
-                        fontSize = Math.min(image.height / 4, (image.width / args[2].length) * 2)
-                        context.font = `${fontSize}px Impact`
-                        context.textBaseline = 'bottom'
-                        context.fillText(args[2], image.width / 2, image.height - 0);
+                        fontSize = Math.min(image.height / 4, (image.width / args[2].length) * 2);
+
+                        context.font = `${fontSize}px Impact`;
+                        context.textBaseline = 'bottom';
+                        context.lineWidth = fontSize / 25;
+
+                        context.strokeText(args[2], image.width / 2, image.height);
+                        context.fillText(args[2], image.width / 2, image.height);
                     }
                     const buffer = canvas.toBuffer('image/png');
                     fs.writeFileSync('./image.png', buffer);
@@ -65,7 +76,7 @@ module.exports = async function (msg, args) {
             }
         });
     } else {
-        msg.channel.send("Error: bad arguments for !mkMeme (<picture url>,top text,bottom text) ❌")
+        msg.channel.send("Error: bad arguments for !mkMeme(,<picture url>,top text,bottom text) ❌");
     }
 
 };
