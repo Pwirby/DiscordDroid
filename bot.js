@@ -1,4 +1,4 @@
-console.log("Starting the Discord bot at...");
+console.log("Starting the Discord bot...");
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
