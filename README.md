@@ -4,7 +4,7 @@
 * !flipCoin →   do a coin flip 🪙
 * !help     →   shows you all commands available and what they do 👨‍🏫
 * !hello    →   makes the bot say '*Hi*' in a random language, try it ! 💬
-* !mkMeme   →   create a Demotivational Poster from a picture from 3 arguments (**<**URL**>**, some top text, bottom text) 🖼
+* !mkDemo   →   create a Demotivational Poster from a picture from 3 arguments (**<**URL**>**, some top text, bottom text) 🖼
 * !mkMeme   →   create a Standard Meme from a picture from 3 arguments (**<**URL**>**, some top text, bottom text) 🖼
 * !upTime   →   check how long have the bot been up ⏳
 * !rock     ⤼
