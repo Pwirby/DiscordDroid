@@ -22,7 +22,7 @@ module.exports = async function (msg, args) {
     // Si la commande a le bon nombre d'arguments
     if (args.length > 1 && args.length <= 3) {
         // Take the URL from < url >
-        let url = args[0].slice(1, args[0].length);
+        let url = args[0].slice(1, args[0].length - 1);
         // On charge l'image
         request.get(url, function (err, _res, body) {
             if (err == null) {
