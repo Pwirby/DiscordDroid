@@ -7,6 +7,7 @@ Here is the list of all the commands :
 * !hello    →   makes the bot say '*Hi*' in a random language, try it ! 💬
 * !mkDemo   →   create a Demotivational Poster from **<**URL**>**, some top text, bottom text 🖼
 * !mkMeme   →   create a Standard Meme from **<**URL**>**, some top text, bottom text 🖼
+* !mkSoy    →   create a Meme with Soyjacks pointing to your picture (**<**picture URL**>**) 🍶\n"
 * !upTime   →   check how long have the bot been up ⏳
 * !rock     ⤼
 * !paper    →   provoke the bot in a rock, paper, scissors duel! ✊/✋/✌
