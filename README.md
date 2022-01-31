@@ -10,17 +10,12 @@
 * !mkSoy    →   create a Meme with Soyjacks pointing to your picture (**<**picture URL**>**) 🍶<br/>
 * !upTime   →   check how long have the bot been up ⏳<br/>
 * !rock     ⤼<br/>
-* !paper    →   provoke the bot in a rock, paper, scissors duel! ✊/✋/✌<br/>
+* !paper    →   provoke the bot in a rock, paper, scissors duel! ✊/✋/✌  
 * !scissors ⤻<br/>
 <br/>
 This project requires the impact microsoft font wich can easily be installed with the command :<br/>
-```
-sudo apt-get install ttf-mscorefonts-installer
-```
-<br/>  
+`sudo apt-get install ttf-mscorefonts-installer`<br/>
 Then you need to update the font cache using :<br/>
-```
-sudo fc-cache -f -v
-```
+`sudo fc-cache -f -v`<br/>
 <br/>
-<a href="https://doc.ubuntu-fr.org/msttcorefonts">See documentation</a>
+<a href="https://doc.ubuntu-fr.org/msttcorefonts">See the documentation for its installation</a>
