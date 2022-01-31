@@ -1,6 +1,6 @@
 # DiscordBot
-A Discord bot for the Brute 2 Pomme server
-Here is the list of all the commands :
+<h1>A Discord bot to make creating meme easy in one command</h1>
+<h2>Here is the list of all the commands :</h2>
 * !compex   →   create a random composition of Apex Legends 🔮
 * !flipCoin →   do a coin flip 🪙
 * !help     →   shows you all commands available and what they do 👨‍🏫
@@ -12,3 +12,8 @@ Here is the list of all the commands :
 * !rock     ⤼
 * !paper    →   provoke the bot in a rock, paper, scissors duel! ✊/✋/✌
 * !scissors ⤻"
+
+This project requires the impact microsoft font wich can easily be installed with the command :
+`sudo apt install ttf-mscorefonts-installer`
+Then you need to update the font cache using :
+`sudo fc-cache -f -v`
