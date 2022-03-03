@@ -16,49 +16,51 @@ export default async function (msg: Message, args: string[]) {
         let soyjak_left = await loadImage("./pictures/soyjak_left.png");
         let soyjak_right = await loadImage("./pictures/soyjak_right.png");
         request.get(url, async (err: string, _res: any, body: Buffer) => {
-            loadImage(body).then(image => {
+            loadImage(body)
+                .then(image => {
 
-                // Send a first message to ensure user we are working
-                msg.channel.send(replieWorking());
+                    // Send a first message to ensure user we are working
+                    msg.channel.send(replieWorking());
 
-                // Create a canvas the size of the picture
-                const canvas = createCanvas(image.width, image.height);
-                const context = canvas.getContext('2d');
+                    // Create a canvas the size of the picture
+                    const canvas = createCanvas(image.width, image.height);
+                    const context = canvas.getContext('2d');
 
-                // Draw the image
-                context.drawImage(image, 0, 0, image.width, image.height);
+                    // Draw the image
+                    context.drawImage(image, 0, 0, image.width, image.height);
 
-                // Draw left soyjack
-                var ratio = Math.min(image.height / (soyjak_left.height + image.height / 4),
-                    image.width / (soyjak_left.width * 3));
+                    // Draw left soyjack
+                    var ratio = Math.min(image.height / (soyjak_left.height + image.height / 4),
+                        image.width / (soyjak_left.width * 3));
 
-                var height = soyjak_left.height * ratio;
-                var width = soyjak_left.width * ratio;
-                context.drawImage(soyjak_left, 0, image.height - height, width, height);
+                    var height = soyjak_left.height * ratio;
+                    var width = soyjak_left.width * ratio;
+                    context.drawImage(soyjak_left, 0, image.height - height, width, height);
 
-                // Draw right soyjack
-                ratio = Math.min(image.height / (soyjak_right.height + image.height / 8),
-                    image.width / (soyjak_left.width * 3));
+                    // Draw right soyjack
+                    ratio = Math.min(image.height / (soyjak_right.height + image.height / 8),
+                        image.width / (soyjak_left.width * 3));
 
-                height = soyjak_right.height * ratio;
-                width = soyjak_right.width * ratio;
-                context.drawImage(soyjak_right, image.width - width, image.height - height, width, height);
+                    height = soyjak_right.height * ratio;
+                    width = soyjak_right.width * ratio;
+                    context.drawImage(soyjak_right, image.width - width, image.height - height, width, height);
 
-                // Save the image before sending it
-                const buffer = canvas.toBuffer('image/png');
-                let time = new Date().toUTCString();
-                let name = `${msg.member?.user.tag}${time}.png`;
-                let path = `./results/${name}`;
-                fs.writeFileSync(path, buffer);
+                    // Save the image before sending it
+                    const buffer = canvas.toBuffer('image/png');
+                    let time = new Date().toUTCString();
+                    let name = `${msg.member?.user.tag}${time}.png`;
+                    let path = `./results/${name}`;
+                    fs.writeFileSync(path, buffer);
 
-                msg.channel.send({ files: [path] })
-                    .then(() => msg.channel.send(`✨ ${replieSuccess()} ✨`));
+                    msg.channel.send({ files: [path] })
+                        .then(() => msg.channel.send(`✨ ${replieSuccess()} ✨`));
 
-            }).catch(err => {
-                console.log(err);
-                // Inform the user that the request failed
-                msg.channel.send(replieFailed());
-            })
+                })
+                .catch(err => {
+                    console.log(err);
+                    // Inform the user that the request failed
+                    msg.channel.send(replieFailed());
+                })
         });
     } else {
         msg.channel.send("Error: bad arguments for !mkDemo,<picture url> ❌");

@@ -1,5 +1,5 @@
 import { replieWorking, replieFailed, replieSuccess } from "./replies";
-import { createCanvas, Image, loadImage } from 'canvas';
+import { createCanvas, loadImage } from 'canvas';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
 import fs from 'fs';
@@ -71,6 +71,7 @@ export default async function (msg: Message, args: string[]) {
 
                     msg.channel.send({ files: [path] })
                         .then(() => msg.channel.send(`✨ ${replieSuccess()} ✨`));
+
                 })
                 .catch(err => {
                     console.log(err);
@@ -79,6 +80,6 @@ export default async function (msg: Message, args: string[]) {
                 })
         });
     } else {
-        msg.channel.send("Error: bad arguments for !mkDemo,<picture url>,title,description ❌");
+        msg.channel.send("Error: bad arguments for !mkDemo,<picture url>,title,description (optionnal) ❌");
     }
 };
