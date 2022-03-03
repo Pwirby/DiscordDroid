@@ -10,7 +10,7 @@ export default async function (msg: Message, args: string[]) {
     // Check we have the good number of arguments
     if (args.length > 1 && args.length <= 3) {
 
-        // Take the URL from < url >
+        // Take the URL from < url > by removing first and last character
         let url = args[0].slice(1, args[0].length - 1);
         // On charge l'image
         request.get(url, async (err: string, _res: any, body: Buffer) => {
@@ -72,7 +72,8 @@ export default async function (msg: Message, args: string[]) {
                     msg.channel.send({ files: [path] })
                         .then(() => msg.channel.send(`✨ ${replieSuccess()} ✨`));
                 })
-                .catch(() => {
+                .catch(err => {
+                    console.log(err);
                     // Inform the user that the request failed
                     msg.channel.send(replieFailed());
                 })
