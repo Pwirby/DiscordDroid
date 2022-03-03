@@ -1,4 +1,4 @@
-import { replieWorking, replieFailed, replieSuccess } from "./replies";
+import { working, failed, success, replie } from "./replies";
 import { createCanvas, loadImage } from 'canvas';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
@@ -17,7 +17,7 @@ export default async function (msg: Message, args: string[]) {
             loadImage(body)
                 .then(image => {
                     // Send a first message to ensure user we are working
-                    msg.channel.send(replieWorking());
+                    msg.channel.send(replie(working));
 
                     // Create a 2D canvas the size of the image
                     const canvas = createCanvas(image.width, image.height);
@@ -69,13 +69,13 @@ export default async function (msg: Message, args: string[]) {
                     fs.writeFileSync(path, buffer);
 
                     msg.channel.send({ files: [path] })
-                        .then(() => msg.channel.send(`✨ ${replieSuccess()} ✨`));
+                        .then(() => msg.channel.send(`✨ ${replie(success)} ✨`));
 
                 })
                 .catch(err => {
                     console.log(err);
                     // Inform the user that the request failed
-                    msg.channel.send(replieFailed());
+                    msg.channel.send(replie(failed));
                 })
         });
     } else {
