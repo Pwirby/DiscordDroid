@@ -90,7 +90,7 @@ export const mkmeme: Command = {
                         const buffer = canvas.toBuffer('image/png');
                         //let time = new Date().toUTCString();
                         //let name = `${interaction.user.tag}${time}.png`;
-                        let path = `./results/result`;
+                        let path = `./results/result.png`;
                         fs.writeFileSync(path, buffer);
 
                         interaction.reply({ files: [path] });
