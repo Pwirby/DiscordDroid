@@ -1,79 +1,90 @@
-import { Message } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { Command } from "../Command";
 
-export default function (msg: Message, args: string[]) {
-    const players = {
-        "@Baradoz#0444": [
-            "Bangalore 💨",
-            "Bloodhound 🦅",
-            "Gibraltar 🛡",
-            "Lifeline 💉",
-            "Pathfinder ⚓",
-            "Rampart 💩",
-            "Wraith 🕳",
+const players = {
+    "@Baradoz#0444": [
+        "Bangalore 💨",
+        "Bloodhound 🦅",
+        "Gibraltar 🛡",
+        "Lifeline 💉",
+        "Pathfinder ⚓",
+        "Rampart 💩",
+        "Wraith 🕳",
 
-        ],
-        "@Pwirby#3948": [
-            "Bangalore 💨",
-            "Bloodhound 🦅",
-            "Caustic ☣",
-            "Crypto 🚁",
-            "Gibraltar 🛡",
-            "Lifeline 💉",
-            "Loba 💰",
-            "Pathfinder ⚓",
-            "Wattson 🚧",
-            "Wraith 🕳",
-        ]
-
-        ,
-        "@Cyriac#6378": [
-            "Bangalore 💨",
-            "Bloodhound 🦅",
-            "Caustic ☣",
-            "Crypto 🚁",
-            "Gibraltar 🛡",
-            "Lifeline 💉",
-            "Mirage 👨‍👨‍👦‍👦",
-            "Octane 🏃‍♂️",
-            "Pathfinder ⚓",
-            "Revenant ⚰",
-            "Valkyrie 🚀",
-            "Wraith 🕳",
-        ]
-    }
-    let characters = [
+    ],
+    "@Pwirby#3948": [
         "Bangalore 💨",
         "Bloodhound 🦅",
         "Caustic ☣",
         "Crypto 🚁",
-        "Fuse 🧨",
         "Gibraltar 🛡",
-        "Horizon 👩‍🚀",
         "Lifeline 💉",
         "Loba 💰",
+        "Pathfinder ⚓",
+        "Wattson 🚧",
+        "Wraith 🕳",
+    ]
+
+    ,
+    "@Cyriac#6378": [
+        "Bangalore 💨",
+        "Bloodhound 🦅",
+        "Caustic ☣",
+        "Crypto 🚁",
+        "Gibraltar 🛡",
+        "Lifeline 💉",
         "Mirage 👨‍👨‍👦‍👦",
         "Octane 🏃‍♂️",
         "Pathfinder ⚓",
-        "Rampart 💩",
         "Revenant ⚰",
         "Valkyrie 🚀",
-        "Wattson 🚧",
         "Wraith 🕳",
-    ];
-    let compo = [];
-    let nb: number = parseInt(args[0], 10);
-    if (args.length == 1 && !isNaN(nb)) {
-        for (; nb > 0; nb--) {
-            let rand = Math.floor(Math.random() * characters.length);
-            compo.push(characters.splice(rand, 1));
+    ]
+}
+let characters = [
+    "Bangalore 💨",
+    "Bloodhound 🦅",
+    "Caustic ☣",
+    "Crypto 🚁",
+    "Fuse 🧨",
+    "Gibraltar 🛡",
+    "Horizon 👩‍🚀",
+    "Lifeline 💉",
+    "Loba 💰",
+    "Mirage 👨‍👨‍👦‍👦",
+    "Octane 🏃‍♂️",
+    "Pathfinder ⚓",
+    "Rampart 💩",
+    "Revenant ⚰",
+    "Valkyrie 🚀",
+    "Wattson 🚧",
+    "Wraith 🕳",
+];
+
+export const compex: Command = {
+    data: new SlashCommandBuilder()
+        .setName("compex")
+        .setDescription("Create a random composition of Apex legends")
+        .addNumberOption(option => option
+            .setName("players")
+            .setDescription("The number of players in the game")
+            .setRequired(true)),
+    run: async (interaction) => {
+        let compo = [];
+        let nb = interaction.options.getNumber("players");
+        if (nb && nb <= 3) {
+            for (; nb > 0; nb--) {
+                let rand = Math.floor(Math.random() * characters.length);
+                compo.push(characters.splice(rand, 1));
+            }
+            let replie = "The composition will be made of : ";
+            for (let character of compo) {
+                replie += character + ", ";
+            }
+            replie += "good luck !";
+            interaction.reply(replie);
+        } else {
+            interaction.reply("Error: missing an argument for the number of player !compex,number ❌");
         }
-        let replie = "The composition will be made of : ";
-        for (let character of compo) {
-            replie += character + ", ";
-        }
-        replie += "good luck !";
-        msg.channel.send(replie);
-    } else {
-        msg.channel.send("Error: missing an argument for the number of player !compex,number ❌");
     }
-};
+}

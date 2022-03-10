@@ -21,7 +21,8 @@
       "baseUrl": "./"
   },
   "files": [
-      "./src/bot.ts"
+      "./src/bot.ts",
+      "./src/deployCommands.ts"
   ],
   "include": [
       "./**/*.ts"

@@ -1,9 +1,9 @@
-import { Message } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { Command } from "../Command";
 
 const salutations = [
     "Ahlan ! 🇦🇪",
     "Anyoung ! 🇰🇷",
-    "Salut ! 🇫🇷",
     "Hallå ! 🇸🇪",
     "Hallo ! 🇩🇪",
     "Halløj ! 🇩🇰",
@@ -16,11 +16,17 @@ const salutations = [
     "Nǐn hǎo ! 🇨🇳",
     "Olá ! 🇵🇹",
     "Privet ! 🇷🇺",
+    "Salut ! 🇫🇷",
+    "Beuchour une foé ! 🇧🇪",
     "Salve ! 🇮🇹",
     "Yassou ! 🇬🇷",
 ];
-
-export default function (msg: Message, args: string[]) {
-    const index = Math.floor(Math.random() * salutations.length);
-    msg.channel.send(salutations[index]);
-};
+export const hello: Command = {
+    data: new SlashCommandBuilder()
+        .setName("hello")
+        .setDescription("Says hello in a random language"),
+    run: async (interaction) => {
+        const index = Math.floor(Math.random() * salutations.length);
+        interaction.reply(salutations[index]);
+    }
+}

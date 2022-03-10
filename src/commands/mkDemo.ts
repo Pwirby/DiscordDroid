@@ -1,23 +1,39 @@
-import { working, failed, success, replie } from "./replies";
-import { createCanvas, loadImage } from 'canvas';
-import { Message } from 'discord.js';
-import fetch from 'node-fetch';
-import fs from 'fs';
+import { working, failed, success, replie } from "./../replies";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
+import { createCanvas, loadImage } from "canvas";
+import fetch from "node-fetch";
+import fs from "fs";
+import { Command } from "src/Command";
 
 const request = require('request').defaults({ encoding: null });
 
-export default async function (msg: Message, args: string[]) {
-    // Check we have the good number of arguments
-    if (args.length > 1 && args.length <= 3) {
+export const mkdemo: Command = {
+    data: new SlashCommandBuilder()
+        .setName("mkdemo")
+        .setDescription("Creates a demotivationnal poster from a picture URL and a title")
+        .addStringOption(option => option
+            .setName("url")
+            .setDescription("The URL of the picture for the meme to be used")
+            .setRequired(true))
+        .addStringOption(option => option
+            .setName("title")
+            .setDescription("The title of the poster")
+            .setRequired(true))
+        .addStringOption(option => option
+            .setName("description")
+            .setDescription("The description under the picture")
+            .setRequired(false)),
 
+    run: async (interaction) => {
         // Take the URL from < url > by removing first and last character
-        let url = args[0].slice(1, args[0].length - 1);
+        let url = interaction.options.getString("url");
         // On charge l'image
         request.get(url, async (err: string, _res: any, body: Buffer) => {
             loadImage(body)
                 .then(image => {
                     // Send a first message to ensure user we are working
-                    msg.channel.send(replie(working));
+                    //interaction.reply(replie(working));
 
                     // Create a 2D canvas a bit bigger than the size of the image
                     const borderSize = image.width / 9;
@@ -46,16 +62,19 @@ export default async function (msg: Message, args: string[]) {
 
                     //TODO: find good fontSize ratio
                     // Writing the title
-                    let text = args[1].trim().replace(/\s{2,}/g, ' ');
+                    let text = interaction.options.getString("title")?.trim().replace(/\s{2,}/g, ' ');
+                    text = text + "";
+
                     var fontSize = Math.min(canvas.width / 8, (image.width / text.length) * 2);
 
                     context.font = `${fontSize}px Times New Roman`;
                     context.fillText(text, canvas.width / 2, image.height + 2 * borderSize);
 
-                    if (args[2]) {
+                    if (interaction.options.getString("description")) {
                         // Writing description
                         // Remove extra spaces
-                        text = args[2].trim().replace(/\s{2,}/g, ' ');
+                        text = interaction.options.getString("description")?.trim().replace(/\s{2,}/g, ' ');
+                        text = text + "";
                         // Calculate the font size 
                         fontSize = Math.min(canvas.width / 12, (image.width / text.length) * 2);
 
@@ -64,22 +83,20 @@ export default async function (msg: Message, args: string[]) {
                     }
                     // Save the image before sending it
                     const buffer = canvas.toBuffer('image/png');
-                    let time = new Date().toUTCString();
-                    let name = `${msg.member?.user.tag}_${time}.png`;
-                    let path = `./results/${name}`;
+                    //let time = new Date().toUTCString();
+                    //let name = `${interaction.user.tag}${time}.png`;
+                    let path = `./results/result`;
                     fs.writeFileSync(path, buffer);
 
-                    msg.channel.send({ files: [path] })
-                        .then(() => msg.channel.send(`✨ ${replie(success)} ✨`));
+                    interaction.reply({ files: [path] })
+                    //.then(() => interaction.reply(`✨ ${replie(success)} ✨`));
 
                 })
                 .catch(err => {
                     console.log(err);
                     // Inform the user that the request failed
-                    msg.channel.send(replie(failed));
+                    interaction.reply(replie(failed));
                 })
         });
-    } else {
-        msg.channel.send("Error: bad arguments for !mkDemo,<picture url>,title,description (optionnal) ❌");
     }
-};
+}
