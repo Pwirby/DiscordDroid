@@ -1,15 +1,15 @@
-import { Interaction } from "discord.js";
+import { robinbarbes } from "./commands/robinbarbes";
+import { flipcoin } from "./commands/flipCoin";
+import { compex } from "./commands/compex";
+import { uptime } from "./commands/upTime";
 import { mkmeme } from "./commands/mkMeme";
 import { mkdemo } from "./commands/mkDemo";
 import { mksoy } from "./commands/mkSoy";
-import { Command } from "./Command";
-import { help } from "./commands/help";
-import { flipcoin } from "./commands/flipCoin";
 import { hello } from "./commands/hello";
-import { uptime } from "./commands/upTime";
-import { robinbarbes } from "./commands/robinbarbes";
+import { help } from "./commands/help";
 import { rps } from "./commands/rps";
-import { compex } from "./commands/compex";
+import { Command } from "./Command";
+import { Interaction } from "discord.js";
 
 
 export const commands: Array<Command> = [
