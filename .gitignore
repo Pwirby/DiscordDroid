@@ -1,6 +1,4 @@
-.env
+src/config.json
 /node_modules
 /results/*
 nohup.out
-barbes.json
-/src/commands/robinbarbes.ts
