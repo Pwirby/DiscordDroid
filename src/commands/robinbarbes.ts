@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { Command } from "src/Command";
 import fs from "fs";
+
 let path = "./barbes.json";
 
 export const robinbarbes: Command = {
@@ -23,7 +24,9 @@ export const robinbarbes: Command = {
                 if (action) {
                     actions.push(action);
                     fs.writeFile(path, JSON.stringify(actions, null, 4), (err) => {
-                        console.log(err);
+                        if (err) {
+                            console.log(err);
+                        }
                     });
                 } else {
                     action = actions[index];
