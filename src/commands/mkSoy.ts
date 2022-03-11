@@ -31,53 +31,54 @@ export const mksoy: Command = {
                     ephemeral: true
                 });
             } else {
-                loadImage(body)
-                    .then(image => {
-                        // Send a first message to ensure user we are working
-                        //interaction.reply(replie(working));
+                try {
+                    loadImage(body)
+                        .then(image => {
+                            // Send a first message to ensure user we are working
+                            //interaction.reply(replie(working));
 
-                        // Create a canvas the size of the picture
-                        const canvas = createCanvas(image.width, image.height);
-                        const context = canvas.getContext('2d');
+                            // Create a canvas the size of the picture
+                            const canvas = createCanvas(image.width, image.height);
+                            const context = canvas.getContext('2d');
 
-                        // Draw the image
-                        context.drawImage(image, 0, 0, image.width, image.height);
+                            // Draw the image
+                            context.drawImage(image, 0, 0, image.width, image.height);
 
-                        // Draw left soyjack
-                        var ratio = Math.min(image.height / (soyjak_left.height + image.height / 4),
-                            image.width / (soyjak_left.width * 3));
+                            // Draw left soyjack
+                            var ratio = Math.min(image.height / (soyjak_left.height + image.height / 4),
+                                image.width / (soyjak_left.width * 3));
 
-                        var height = soyjak_left.height * ratio;
-                        var width = soyjak_left.width * ratio;
-                        context.drawImage(soyjak_left, 0, image.height - height, width, height);
+                            var height = soyjak_left.height * ratio;
+                            var width = soyjak_left.width * ratio;
+                            context.drawImage(soyjak_left, 0, image.height - height, width, height);
 
-                        // Draw right soyjack
-                        ratio = Math.min(image.height / (soyjak_right.height + image.height / 8),
-                            image.width / (soyjak_left.width * 3));
+                            // Draw right soyjack
+                            ratio = Math.min(image.height / (soyjak_right.height + image.height / 8),
+                                image.width / (soyjak_left.width * 3));
 
-                        height = soyjak_right.height * ratio;
-                        width = soyjak_right.width * ratio;
-                        context.drawImage(soyjak_right, image.width - width, image.height - height, width, height);
+                            height = soyjak_right.height * ratio;
+                            width = soyjak_right.width * ratio;
+                            context.drawImage(soyjak_right, image.width - width, image.height - height, width, height);
 
-                        // Save the image before sending it
-                        const buffer = canvas.toBuffer('image/png');
-                        //let time = new Date().toUTCString();
-                        //let name = `${interaction.user.tag}${time}.png`;
-                        let path = `./results/result.png`;
-                        fs.writeFileSync(path, buffer);
+                            // Save the image before sending it
+                            const buffer = canvas.toBuffer('image/png');
+                            //let time = new Date().toUTCString();
+                            //let name = `${interaction.user.tag}${time}.png`;
+                            let path = `./results/result.png`;
+                            fs.writeFileSync(path, buffer);
 
-                        interaction.reply({ files: [path] })
-                        //.then(() => interaction.reply(`✨ ${replie(success)} ✨`));
+                            interaction.reply({ files: [path] })
+                            //.then(() => interaction.reply(`✨ ${replie(success)} ✨`));
 
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        // Inform the user that the request failed
-                        interaction.reply({
-                            content: `${replie(failed)}`,
-                            ephemeral: true
-                        });
-                    })
+                        })
+                } catch (err) {
+                    console.log(err);
+                    // Inform the user that the request failed
+                    interaction.reply({
+                        content: `${replie(failed)}`,
+                        ephemeral: true
+                    });
+                }
             }
         });
     }
