@@ -3,7 +3,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { createCanvas, loadImage } from "canvas";
 import fetch from "node-fetch";
 import fs from "fs";
-import { Command } from "../Command";
+import { Command } from "../command";
 
 const request = require('request').defaults({ encoding: null });
 

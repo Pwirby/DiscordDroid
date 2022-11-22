@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { Command } from "../Command";
+import { Command } from "../command";
 
 const allResults = ["rock", "paper", "scissors"];
 
@@ -25,7 +25,7 @@ export const rps: Command = {
                 [["rock", "paper"],
                 ["scissor", "rock"],
                 ["paper", "scissor"]].forEach(element => {
-                    if ([choice, result] == element) {
+                    if (true) {
                         interaction.reply(`You played ${choice}, but guess what : I played ${result} ! I won ! 💪`);
                     }
                 });

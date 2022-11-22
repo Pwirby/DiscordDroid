@@ -1,13 +1,13 @@
-import { Client, Intents } from "discord.js";
+import { Client, IntentsBitField } from "discord.js";
 import { commandHandler } from "./commandHandler";
 import { token, guildId } from './config.json';
 
 const client = new Client({
     intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.DIRECT_MESSAGES
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildMembers,
+        IntentsBitField.Flags.DirectMessages
     ]
 });
 

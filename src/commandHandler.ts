@@ -1,4 +1,3 @@
-import { robinbarbes } from "./commands/robinbarbes";
 import { flipcoin } from "./commands/flipCoin";
 import { compex } from "./commands/compex";
 import { uptime } from "./commands/upTime";
@@ -8,8 +7,8 @@ import { mksoy } from "./commands/mkSoy";
 import { hello } from "./commands/hello";
 import { help } from "./commands/help";
 import { rps } from "./commands/rps";
-import { Command } from "./Command";
-import { Interaction } from "discord.js";
+import { Command } from "./command";
+import { Interaction, ChatInputCommandInteraction } from "discord.js";
 
 
 export const commands: Array<Command> = [
@@ -21,12 +20,12 @@ export const commands: Array<Command> = [
     mkmeme,
     mkdemo,
     mksoy,
-    robinbarbes,
     rps
 ];
 
 export const commandHandler = async (interaction: Interaction) => {
-    if (interaction.isCommand()) {
+    if (interaction.isChatInputCommand()) {
+        
         for (const Command of commands) {
             if (interaction.commandName === Command.data.name) {
                 await Command.run(interaction);

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { Command } from "../Command";
+import { Command } from "../command";
 
 const result = ["tail ! 🪙", "head ! 🗿"];
 const verb1 = ["flip", "toss", "throw"];

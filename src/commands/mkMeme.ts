@@ -3,7 +3,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { createCanvas, loadImage } from "canvas";
 import fetch from "node-fetch";
 import fs from "fs";
-import { Command } from "../Command";
+import { Command } from "../command";
 
 const request = require('request').defaults({ encoding: null });
 
@@ -26,8 +26,8 @@ export const mkmeme: Command = {
 
     run: async (interaction) => {
         // Take the URL from < url > by removing first and last character
-        let url = interaction.options.getString("url");
-        let top = interaction.options.getString("top") + "";
+        let url = interaction.options.getString("url", true);
+        let top = interaction.options.getString("top", true);
         let bottom = interaction.options.getString("bottom");
         // On charge l'image
         request.get(url, async (err: string, _res: any, body: Buffer) => {
