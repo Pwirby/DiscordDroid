@@ -70,7 +70,7 @@ export const mkmeme: Command = {
         // Draw the bottom text outlines
         context.fillText(text, image.width / 2, 0);
 
-        if (bottom) {
+        if (bottom !== undefined && bottom !== null) {
           // Remove extra spaces
           text = bottom.trim().replace(/\s{2,}/g, " ");
           // Calculate the font size
@@ -78,7 +78,7 @@ export const mkmeme: Command = {
             image.height / 4,
             (image.width / text.length) * 2
           );
-          
+
           context.font = `${fontSize}px Impact`;
           context.lineWidth = fontSize / 25;
           context.textBaseline = "bottom";

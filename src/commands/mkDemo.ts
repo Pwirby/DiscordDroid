@@ -33,16 +33,15 @@ export const mkdemo: Command = {
   run: async (interaction) => {
     let imageUrl = interaction.options.getString("url", true);
     // Remove extra spaces
-    let bottomText =
-      interaction.options
-        .getString("description")
-        ?.trim()
-        .replace(/\s{2,}/g, " ") + "";
-    let topText = interaction.options
+    let description = interaction.options
+      .getString("description")
+      ?.trim()
+      .replace(/\s{2,}/g, " ");
+    let title = interaction.options
       .getString("title", true)
       .trim()
       .replace(/\s{2,}/g, " ");
-    // On charge l'image
+    // We load the picture
     let fimg = await fetch(imageUrl);
     let body = Buffer.from(await fimg.arrayBuffer());
     try {
@@ -87,27 +86,28 @@ export const mkdemo: Command = {
         // Calculate the font size
         let fontSize = Math.min(
           canvas.width / 8,
-          (image.width / topText.length) * 2
+          (image.width / title.length) * 2
         );
         context.font = `${fontSize}px Times New Roman`;
         context.fillText(
-          topText,
+          title,
           canvas.width / 2,
           image.height + 2 * borderSize
         );
-
-        // Writing description
-        // Calculate the font size
-        fontSize = Math.min(
-          canvas.width / 12,
-          (image.width / bottomText.length) * 2
-        );
-        context.font = `${fontSize}px Times New Roman`;
-        context.fillText(
-          bottomText,
-          canvas.width / 2,
-          canvas.height - borderSize
-        );
+        if (description !== undefined && description !== null) {
+          // Writing description
+          // Calculate the font size
+          fontSize = Math.min(
+            canvas.width / 12,
+            (image.width / description.length) * 2
+          );
+          context.font = `${fontSize}px Times New Roman`;
+          context.fillText(
+            description,
+            canvas.width / 2,
+            canvas.height - borderSize
+          );
+        }
 
         // Save the image before sending it
         const buffer = canvas.toBuffer("image/png");
