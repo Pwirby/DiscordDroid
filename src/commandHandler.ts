@@ -21,15 +21,10 @@ export const commands: Array<Command> = [
   mksoy,
   rps,
 ];
-// const allCommands = new Map<String, Command>();
-// commands.forEach( e => allCommands.set(e.data.name, e))
+const allCommands = new Map<String, Command>();
+commands.forEach((e) => allCommands.set(e.data.name, e));
 
 export const commandHandler = async (interaction: Interaction) => {
   if (!interaction.isChatInputCommand()) return;
-  for (const Command of commands) {
-    if (interaction.commandName === Command.data.name) {
-      await Command.run(interaction);
-      break;
-    }
-  }
+  await allCommands.get(interaction.commandName)?.run(interaction);
 };
