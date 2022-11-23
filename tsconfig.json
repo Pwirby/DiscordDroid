@@ -1,34 +1,29 @@
 {
   "compilerOptions": {
-      "target": "ESNext",
-      "module": "commonjs",
-      "rootDir": "./src/",
-      "outDir": "./dist/",
-      "strict": true,
-      "moduleResolution": "node",
-      "importHelpers": true,
-      "experimentalDecorators": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "allowSyntheticDefaultImports": true,
-      "resolveJsonModule": true,
-      "forceConsistentCasingInFileNames": true,
-      "removeComments": true,
-      "typeRoots": [
-          "node_modules/@types"
-      ],
-      "sourceMap": false,
-      "baseUrl": "./"
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "rootDir": "./src/",
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strict": true,
+    "target": "ESNext",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types"]
   },
-  "files": [
-      "./src/bot.ts",
-      "./src/deployCommands.ts"
-  ],
-  "include": [
-      "./**/*.ts"
-  ],
-  "exclude": [
-      "node_modules",
-      "dist"
-  ],
-} 
+  "exclude": ["node_modules", "dist"],
+  "files": ["./src/bot.ts", "./src/deployCommands.ts"],
+  "include": ["./**/*.ts"],
+  "ts-node": {
+    // Tell ts-node CLI to install the --loader automatically
+    "esm": true
+  }
+}

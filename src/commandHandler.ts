@@ -1,36 +1,35 @@
-import { flipcoin } from "./commands/flipCoin";
-import { compex } from "./commands/compex";
-import { uptime } from "./commands/upTime";
-import { mkmeme } from "./commands/mkMeme";
-import { mkdemo } from "./commands/mkDemo";
-import { mksoy } from "./commands/mkSoy";
-import { hello } from "./commands/hello";
-import { help } from "./commands/help";
-import { rps } from "./commands/rps";
+import { flipcoin } from "./commands/flipCoin.js";
+import { compex } from "./commands/compex.js";
+import { uptime } from "./commands/upTime.js";
+import { mkmeme } from "./commands/mkMeme.js";
+import { mkdemo } from "./commands/mkDemo.js";
+import { mksoy } from "./commands/mkSoy.js";
+import { hello } from "./commands/hello.js";
+import { help } from "./commands/help.js";
+import { rps } from "./commands/rps.js";
 import { Command } from "./command";
-import { Interaction, ChatInputCommandInteraction } from "discord.js";
-
+import { Interaction } from "discord.js";
 
 export const commands: Array<Command> = [
-    compex,
-    flipcoin,
-    hello,
-    help,
-    uptime,
-    mkmeme,
-    mkdemo,
-    mksoy,
-    rps
+  compex,
+  flipcoin,
+  hello,
+  help,
+  uptime,
+  mkdemo,
+  mkmeme,
+  mksoy,
+  rps,
 ];
+// const allCommands = new Map<String, Command>();
+// commands.forEach( e => allCommands.set(e.data.name, e))
 
 export const commandHandler = async (interaction: Interaction) => {
-    if (interaction.isChatInputCommand()) {
-        
-        for (const Command of commands) {
-            if (interaction.commandName === Command.data.name) {
-                await Command.run(interaction);
-                break;
-            }
-        }
+  if (!interaction.isChatInputCommand()) return;
+  for (const Command of commands) {
+    if (interaction.commandName === Command.data.name) {
+      await Command.run(interaction);
+      break;
     }
+  }
 };

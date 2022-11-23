@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/bot.ts",
+  "type": "module",
   "scripts": {
-    "start": "ts-node ./src/bot.ts",
-    "deploy": "ts-node ./deployCommands.ts"
+    "start": "ts-node ./src/bot.ts"
   },
   "author": "",
   "license": "ISC",
@@ -16,8 +16,6 @@
     "canvas": "^2.10.2",
     "discord-api-types": "^0.37.19",
     "discord.js": "^14.6.0",
-    "node-fetch": "^3.3.0",
-    "request": "^2.88.2",
-    "simple-get": "^4.0.1"
+    "node-fetch": "^3.3.0"
   }
 }

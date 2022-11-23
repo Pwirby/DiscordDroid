@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { Command } from "../command";
-import { startupTime } from "./../bot";
+import { startupTime } from "./../bot.js";
 
 export const uptime: Command = {
     data: new SlashCommandBuilder()
