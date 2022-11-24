@@ -14,34 +14,43 @@ export const rps: Command = {
         .setRequired(true)
     ),
   run: async (interaction) => {
-    let choice = interaction.options.getString("choice", true);
+    let answered = false;
+    let choice = interaction.options.getString("choice", true).toLowerCase();
+
     if (choice && allResults.includes(choice)) {
       // Bot choose at random
       let index = Math.floor(Math.random() * allResults.length);
       // We get the string corresponding to the bot's choice
       let result = allResults[index];
       // We compare user's choice with the random choice
-      if (choice === result) {
+      [
+        ["rock", "paper"],
+        ["scissor", "rock"],
+        ["paper", "scissor"],
+      ].forEach((element) => {
+        if (element[0] === choice && element[1] === result && !answered) {
+          interaction.reply(
+            `You played ${choice}, but guess what : I played ${result} ! I won ! 💪`
+          );
+          answered = true;
+        }
+      });
+      if (choice === result && !answered) {
         interaction.reply(
           `You played ${choice}, and I played ${result} too ! That mean it's a draw 🤝`
         );
-      } else {
-        [
-          ["rock", "paper"],
-          ["scissor", "rock"],
-          ["paper", "scissor"],
-        ].forEach((element) => {
-          if (element[0] === choice && element[1] === result) {
-            interaction.reply(
-              `You played ${choice}, but guess what : I played ${result} ! I won ! 💪`
-            );
-          } else {
-            interaction.reply(
-              `You played ${choice}, and I played ${result} ! You won ! 🏆`
-            );
-          }
-        });
+        answered = true;
+      } else if (!answered) {
+        interaction.reply(
+          `You played ${choice}, and I played ${result} ! You won ! 🏆`
+        );
+        answered = true;
       }
+    } else {
+      interaction.reply({
+        content: `You can only choose between rock, paper & scissor !`,
+        ephemeral: true,
+      });
     }
   },
 };
