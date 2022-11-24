@@ -22,9 +22,9 @@ export const mksoy: Command = {
     // Load the images
     let soyjak_left = await loadImage("./pictures/soyjak_left.png");
     let soyjak_right = await loadImage("./pictures/soyjak_right.png");
-    let fimg = await fetch(imageUrl);
-    let body = Buffer.from(await fimg.arrayBuffer());
     try {
+      let fimg = await fetch(imageUrl);
+      let body = Buffer.from(await fimg.arrayBuffer());
       loadImage(body).then((image) => {
         // Send a first message to ensure user we are working
         //interaction.reply(replie(working));

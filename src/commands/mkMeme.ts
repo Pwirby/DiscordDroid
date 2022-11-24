@@ -33,9 +33,9 @@ export const mkmeme: Command = {
     let top = interaction.options.getString("top", true);
     let bottom = interaction.options.getString("bottom");
     // We load the picture
-    let fimg = await fetch(imageUrl);
-    let body = Buffer.from(await fimg.arrayBuffer());
     try {
+      let fimg = await fetch(imageUrl);
+      let body = Buffer.from(await fimg.arrayBuffer());
       loadImage(body).then((image) => {
         // Send a first message to ensure user we are working
         //interaction.reply(replie(working));
