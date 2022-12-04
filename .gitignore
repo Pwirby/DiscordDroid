@@ -1,4 +1,5 @@
 src/config.json
 /node_modules
-/results/*
+/public/img/result.png
+/dist
 nohup.out
