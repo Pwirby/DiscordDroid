@@ -1,8 +1,8 @@
 import { working, failed, success, replie } from "../replies.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
+import { AttachmentBuilder } from "discord.js";
 import { createCanvas, loadImage } from "canvas";
 import fetch from "node-fetch";
-import fs from "fs";
 import { Command } from "../command";
 
 export const mksoy: Command = {
@@ -26,9 +26,6 @@ export const mksoy: Command = {
       let fimg = await fetch(imageUrl);
       let body = Buffer.from(await fimg.arrayBuffer());
       loadImage(body).then((image) => {
-        // Send a first message to ensure user we are working
-        //interaction.reply(replie(working));
-
         // Create a canvas the size of the picture
         const canvas = createCanvas(image.width, image.height);
         const context = canvas.getContext("2d");
@@ -61,15 +58,10 @@ export const mksoy: Command = {
           width,
           height
         );
-
-        // Save the image before sending it
-        const buffer = canvas.toBuffer("image/png");
-        //let time = new Date().toUTCString();
-        //let name = `${interaction.user.tag}${time}.png`;
-        let path = `./public/img/result.png`;
-        fs.writeFileSync(path, buffer);
-
-        interaction.reply({ files: [path] });
+        // Convert the buffer to an attachement
+        let buffer = canvas.toBuffer("image/png");
+        let imageResult = new AttachmentBuilder(buffer);
+        interaction.reply({ files: [imageResult] });
         //.then(() => interaction.reply(`✨ ${replie(success)} ✨`));
       });
     } catch (err) {
